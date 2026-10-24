@@ -1,0 +1,21 @@
+{
+  "name": "class-lottery",
+  "private": true,
+  "version": "0.1.0",
+  "description": "使用学号后三位进行班级活动抽签的网页工具",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc src/lottery.ts src/roster.ts --target ES2022 --module ES2022 --outDir .test-build --strict --skipLibCheck && node --test tests",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.3.6"
+  }
+}

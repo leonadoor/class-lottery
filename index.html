@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="用学号后三位，为班级活动抽取参与人员。" />
+    <title>班级抽签</title>
+  </head>
+  <body>
+    <main id="app">
+      <section class="welcome" aria-labelledby="page-title">
+        <p class="eyebrow">CLASS LOTTERY</p>
+        <h1 id="page-title">班级抽签</h1>
+        <p class="intro">为运动会，也为下一次班级活动。</p>
+        <p>用学号后三位标识每位同学，从候选名单中抽取参与人员。</p>
+        <form id="lottery-form">
+          <label for="activity">活动名称</label>
+          <input id="activity" value="运动会" required maxlength="80" />
+          <label for="roster">候选名单</label>
+          <textarea id="roster" rows="7" required placeholder="007&#10;042&#10;318" aria-describedby="roster-help"></textarea>
+          <p id="roster-help" class="hint">输入三位学号，用换行、空格或逗号分隔；也支持 Markdown 无序列表。只填写需要参与抽签的同学。</p>
+          <label for="roster-file">从本机导入名单（.md / .txt）</label>
+          <input id="roster-file" type="file" accept=".md,.txt,text/plain,text/markdown" />
+          <p class="hint">可选择本地 data/list.md。文件仅在浏览器内读取，不上传；请先整理为上述学号格式。</p>
+          <section aria-labelledby="projects-title">
+            <h2 id="projects-title">活动项目</h2>
+            <p class="hint">每人最多参加一个项目。待补人数不能超过该项目人数上限；已报名者请从候选名单中移除，并扣除已占名额后填写待补人数。</p>
+            <div id="projects"></div>
+            <button id="add-project" type="button" class="secondary">添加项目</button>
+          </section>
+          <label for="seed">随机种子（可选）</label>
+          <div class="seed-row">
+            <input id="seed" type="number" min="0" max="4294967295" step="1" placeholder="留空则自动生成" aria-describedby="seed-help" />
+            <button id="new-seed" type="button" class="secondary">生成新种子</button>
+          </div>
+          <p id="seed-help" class="hint">相同名单、项目配置及顺序、种子可复现结果。先确定名单和项目，再生成种子。</p>
+          <p id="error" class="error" role="alert" hidden></p>
+          <button type="submit">开始抽签</button>
+        </form>
+        <section id="result" class="result" aria-labelledby="result-title" aria-live="polite" hidden>
+          <h2 id="result-title">抽签结果</h2>
+          <p id="result-summary"></p>
+          <div id="assignments"></div>
+          <details><summary>未分配人员</summary><p id="unassigned"></p></details>
+          <p id="result-seed" class="hint"></p>
+          <button id="download" type="button" class="secondary">下载抽签记录（JSON）</button>
+          <p class="hint">记录含候选名单，请妥善保管。刷新页面会清空本次结果。</p>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
